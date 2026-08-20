@@ -1,0 +1,517 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #172033;
+  background: #eef2f7;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+}
+
+.page-shell {
+  width: 100%;
+  height: 100%;
+  padding: clamp(10px, 1.6vw, 22px);
+  display: grid;
+  place-items: center;
+}
+
+.scheduler-card {
+  width: min(1180px, 100%);
+  height: min(760px, calc(100vh - 20px));
+  background: #ffffff;
+  border: 1px solid #dfe5ee;
+  border-radius: 18px;
+  box-shadow: 0 14px 40px rgba(28, 39, 61, 0.10);
+  padding: clamp(16px, 2vw, 26px);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.top-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #62708a;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.45rem, 2.5vw, 2.15rem);
+  line-height: 1.08;
+  color: #172033;
+}
+
+.timezone-badge {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 7px 11px;
+  background: #eef3ff;
+  color: #264b93;
+  font-size: 0.78rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.scheduler-layout {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.35fr);
+  gap: clamp(14px, 2vw, 24px);
+}
+
+.left-panel,
+.right-panel {
+  min-width: 0;
+  min-height: 0;
+}
+
+.left-panel {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.right-panel {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 12px;
+}
+
+.info-block {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e7ef;
+  border-radius: 12px;
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: 116px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+.info-label {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #47556d;
+}
+
+.info-value {
+  font-size: 0.81rem;
+  line-height: 1.35;
+  color: #1c2739;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.professor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.choice-card input,
+.time-cell input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.professor-choice label {
+  min-height: 50px;
+  margin: 0;
+  padding: 9px 10px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  border: 1px solid #ccd5e1;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 0.82rem;
+  font-weight: 750;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.professor-choice input:checked + label {
+  border-color: #315ca8;
+  background: #eaf1ff;
+  color: #173d84;
+  box-shadow: inset 0 0 0 1px #315ca8;
+}
+
+.professor-choice input:focus-visible + label,
+.time-cell input:focus-visible + label {
+  outline: 3px solid rgba(49, 92, 168, 0.25);
+  outline-offset: 2px;
+}
+
+.comments-block {
+  display: grid;
+  gap: 6px;
+}
+
+.comments-block label {
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.comments-block label span {
+  font-weight: 500;
+  color: #707b8c;
+}
+
+textarea {
+  width: 100%;
+  min-height: 58px;
+  max-height: 76px;
+  resize: none;
+  border: 1px solid #ccd5e1;
+  border-radius: 10px;
+  padding: 9px 10px;
+  font: inherit;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+textarea:focus {
+  outline: 3px solid rgba(49, 92, 168, 0.20);
+  outline-offset: 1px;
+}
+
+.availability-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.availability-heading h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.availability-heading p {
+  margin: 3px 0 0;
+  font-size: 0.76rem;
+  color: #697589;
+}
+
+.availability-table {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1.2fr repeat(4, minmax(70px, 1fr));
+  grid-template-rows: auto repeat(3, 1fr);
+  border: 1px solid #dce3ec;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.table-head,
+.date-cell,
+.time-cell {
+  border-right: 1px solid #e2e7ef;
+  border-bottom: 1px solid #e2e7ef;
+}
+
+.table-head:nth-child(5n),
+.time-cell:nth-child(5n) {
+  border-right: 0;
+}
+
+.table-head {
+  display: grid;
+  place-items: center;
+  padding: 8px 6px;
+  background: #f6f8fb;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-align: center;
+  color: #48556a;
+}
+
+.table-date {
+  justify-items: start;
+  padding-left: 12px;
+}
+
+.date-cell {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  padding: 8px 12px;
+  background: #fbfcfe;
+}
+
+.date-cell strong {
+  font-size: 0.9rem;
+}
+
+.date-cell span {
+  margin-top: 2px;
+  font-size: 0.72rem;
+  color: #748095;
+}
+
+.time-cell {
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.time-cell label {
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #d5dce7;
+  border-radius: 9px;
+  background: #fff;
+  color: transparent;
+  font-size: 1rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.time-cell label::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border: 2px solid #aeb8c7;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.time-cell input:checked + label {
+  color: #fff;
+  background: #315ca8;
+  border-color: #315ca8;
+}
+
+.time-cell input:checked + label::before {
+  display: none;
+}
+
+.submit-zone {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(170px, 220px);
+  align-items: center;
+  gap: 10px;
+}
+
+.message {
+  min-height: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.message.success {
+  color: #1a6b3d;
+}
+
+.message.error {
+  color: #a02f2f;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 16px;
+  background: #253f76;
+  color: #fff;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1c315f;
+}
+
+button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+/* Compact mode for shorter laptop screens */
+@media (max-height: 680px) and (min-width: 760px) {
+  .page-shell {
+    padding: 8px;
+  }
+
+  .scheduler-card {
+    height: calc(100vh - 16px);
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .left-panel {
+    gap: 10px;
+  }
+
+  .info-block {
+    padding: 9px 11px;
+    gap: 6px;
+  }
+
+  .professor-choice label {
+    min-height: 42px;
+    font-size: 0.76rem;
+  }
+
+  textarea {
+    min-height: 46px;
+    max-height: 50px;
+  }
+
+  .availability-table {
+    grid-template-rows: 34px repeat(3, 1fr);
+  }
+
+  .table-head {
+    padding: 5px 4px;
+  }
+
+  .time-cell label {
+    min-height: 36px;
+  }
+}
+
+/* Narrow screens: still designed to remain on one screen */
+@media (max-width: 760px) {
+  body {
+    overflow: auto;
+  }
+
+  .page-shell {
+    min-height: 100%;
+    height: auto;
+    padding: 8px;
+  }
+
+  .scheduler-card {
+    height: auto;
+    min-height: calc(100vh - 16px);
+    padding: 14px;
+    overflow: visible;
+  }
+
+  .top-header {
+    align-items: center;
+  }
+
+  .scheduler-layout {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .left-panel {
+    gap: 10px;
+  }
+
+  .info-row {
+    grid-template-columns: 100px minmax(0, 1fr);
+  }
+
+  .professor-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .professor-choice label {
+    min-height: 44px;
+    font-size: 0.76rem;
+  }
+
+  .availability-table {
+    grid-template-columns: 0.9fr repeat(4, minmax(54px, 1fr));
+  }
+
+  .table-head {
+    font-size: 0.66rem;
+  }
+
+  .date-cell {
+    padding: 6px 8px;
+  }
+
+  .date-cell strong {
+    font-size: 0.8rem;
+  }
+
+  .time-cell label {
+    min-height: 38px;
+  }
+
+  .submit-zone {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 430px) {
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  .timezone-badge {
+    font-size: 0.68rem;
+    padding: 6px 8px;
+  }
+
+  .professor-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .availability-table {
+    grid-template-columns: 0.85fr repeat(4, minmax(48px, 1fr));
+  }
+
+  .table-head {
+    font-size: 0.6rem;
+  }
+
+  .time-cell label {
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+  }
+}
